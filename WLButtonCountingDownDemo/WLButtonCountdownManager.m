@@ -46,6 +46,7 @@
             if (_countingDownBlcok) _countingDownBlcok(_leftTimeInterval);
         });
         
+        //子线程每秒睡眠一次进行模拟
         [NSThread sleepForTimeInterval:1];
     }
     
@@ -125,10 +126,14 @@
         NSCAssert(NO, @"受操作系统后台时间限制，倒计时时间规定不得大于 120 秒.");
     }
     
+    //manager拥有一个线程池，也就是并发操作队列，每分配一个计时器，就将它放到池子中，计时器跑完会自动从池中销毁。
+    
     if (_pool.operations.count >= 20)  // 最多 20 个并发线程
         return;
     
     WLCountdownTask *task = nil;
+    
+    //在创建计时任务之前，manager从池子中检索是否有相同key的计时任务，如果任务存在，直接回调计时操作，否则新建一个标示为key的任务
     if ([self countdownTaskExistWithKey:aKey task:&task]) {
         task.countingDownBlcok = countingDown;
         task.finishedBlcok     = finished;

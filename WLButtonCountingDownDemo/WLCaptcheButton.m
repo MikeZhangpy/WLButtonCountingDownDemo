@@ -62,6 +62,7 @@
 - (void)setIdentifyKey:(NSString *)identifyKey {
     _identifyKey = identifyKey;
     if ([[WLButtonCountdownManager defaultManager] countdownTaskExistWithKey:identifyKey task:nil]) {
+        //如果存在这个key
         [self shouldNotSendAction];
     }
 }

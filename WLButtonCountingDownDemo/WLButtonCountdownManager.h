@@ -4,7 +4,7 @@
 //
 //  Created by wayne on 16/1/14.
 //  Copyright © 2016年 ZHWAYNE. All rights reserved.
-//
+//  负责分配计时器并将其与按钮绑定
 
 #import <Foundation/Foundation.h>
 
